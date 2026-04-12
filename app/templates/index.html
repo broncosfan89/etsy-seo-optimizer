@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+    <main class="page">
+        <header class="topbar">
+            <div class="brand-lockup">
+                <span class="brand-mark">EO</span>
+                <div>
+                    <p class="eyebrow">Seller Tools</p>
+                    <h1 class="brand-name">{{ app_name }}</h1>
+                </div>
+            </div>
+            <div class="topbar-meta">
+                <span class="mode-pill">{{ "Mock mode" if mock_mode else "Live model" }}</span>
+                <span class="topbar-copy">Extract, tune, and rewrite listing copy faster.</span>
+            </div>
+        </header>
+
+        <section class="hero-grid">
+            <article class="hero-panel card">
+                <div class="hero-copy">
+                    <p class="eyebrow">Etsy SEO Workflow</p>
+                    <h2>Turn a live Etsy listing into tighter, more searchable copy.</h2>
+                    <p class="hero-text">
+                        Paste a listing URL, review what the app can pull from the public page, then generate a better title, description, and tags with structured SEO feedback.
+                    </p>
+                </div>
+
+                <div class="hero-metrics">
+                    <div class="metric-card">
+                        <span class="metric-number">1</span>
+                        <div>
+                            <h3>Extract</h3>
+                            <p>Try the public page first, then fall back gracefully if Etsy blocks automation.</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number">2</span>
+                        <div>
+                            <h3>Refine</h3>
+                            <p>Edit the pulled title and description before analysis so the result stays grounded.</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number">3</span>
+                        <div>
+                            <h3>Publish</h3>
+                            <p>Copy optimized copy blocks and Etsy tags directly into your listing workflow.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="control-panel card">
+                <div class="control-header">
+                    <p class="eyebrow">Analyze Listing</p>
+                    <h2>Start With a URL</h2>
+                    <p class="subtle">
+                        Best case: the app pulls usable listing copy immediately. If Etsy blocks the page, the form below stays ready for manual edits.
+                    </p>
+                </div>
+
+                <form id="extract-form" class="url-form">
+                    <label for="listing-url">Etsy listing URL</label>
+                    <input id="listing-url" name="url" type="url" placeholder="https://www.etsy.com/listing/123456789/example-product" required>
+                    <button id="extract-button" type="submit">Analyze Listing</button>
+                    <p class="microcopy">Extraction uses multiple strategies and keeps the fallback form open when confidence is low.</p>
+                </form>
+
+                <div class="mini-grid">
+                    <div class="mini-card">
+                        <span class="mini-label">Output</span>
+                        <strong>Score + Rewrite</strong>
+                    </div>
+                    <div class="mini-card">
+                        <span class="mini-label">Tags</span>
+                        <strong>13 Etsy-ready ideas</strong>
+                    </div>
+                    <div class="mini-card">
+                        <span class="mini-label">Copy</span>
+                        <strong>One-click export</strong>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section id="status-panel" class="status-panel" aria-live="polite"></section>
+
+        <section id="editor-card" class="editor-shell card hidden">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Review Content</p>
+                    <h2>Source Listing Details</h2>
+                </div>
+                <span id="confidence-pill" class="pill"></span>
+            </div>
+
+            <div class="editor-layout">
+                <div class="editor-main">
+                    <form id="analysis-form" class="analysis-form">
+                        <div class="field">
+                            <label for="current-title">Current title</label>
+                            <input id="current-title" name="title" type="text" maxlength="280" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="current-description">Current description</label>
+                            <textarea id="current-description" name="description" rows="10" required></textarea>
+                        </div>
+
+                        <div class="field-grid">
+                            <div class="field">
+                                <label for="category">Category <span>Optional</span></label>
+                                <input id="category" name="category" type="text" maxlength="120" placeholder="Wall art, wedding gift, printable, etc.">
+                            </div>
+
+                            <div class="field">
+                                <label for="target-keyword">Target keyword <span>Optional</span></label>
+                                <input id="target-keyword" name="target_keyword" type="text" maxlength="120" placeholder="personalized wedding gift">
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="analyze-button" type="submit">Generate SEO Recommendations</button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="editor-side">
+                    <div class="insight-card">
+                        <h3>Extraction Notes</h3>
+                        <div id="notes-list" class="notes"></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="results-card" class="results-shell card hidden">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Results</p>
+                    <h2>SEO Analysis</h2>
+                </div>
+                <div class="score-wrap">
+                    <div id="score-value" class="score-value">0</div>
+                    <div>
+                        <div id="score-label" class="score-label">Poor</div>
+                        <div id="score-meta" class="subtle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <article class="result-block">
+                    <h3>Issues Found</h3>
+                    <ul id="issues-list" class="list"></ul>
+                </article>
+
+                <article class="result-block">
+                    <h3>Keyword Focus</h3>
+                    <p id="keyword-focus" class="result-text"></p>
+                </article>
+
+                <article class="result-block wide">
+                    <div class="result-head">
+                        <h3>Optimized Title</h3>
+                        <button type="button" class="copy-button" data-copy-target="optimized-title">Copy Title</button>
+                    </div>
+                    <textarea id="optimized-title" class="copy-area" rows="3" readonly></textarea>
+                </article>
+
+                <article class="result-block wide">
+                    <div class="result-head">
+                        <h3>Optimized Description</h3>
+                        <button type="button" class="copy-button" data-copy-target="optimized-description">Copy Description</button>
+                    </div>
+                    <textarea id="optimized-description" class="copy-area tall" rows="10" readonly></textarea>
+                </article>
+
+                <article class="result-block wide">
+                    <div class="result-head">
+                        <h3>Suggested Etsy Tags</h3>
+                        <button type="button" class="copy-button" data-copy-target="suggested-tags">Copy Tags</button>
+                    </div>
+                    <div id="suggested-tags" class="tag-grid"></div>
+                </article>
+
+                <article class="result-block wide">
+                    <h3>Improvement Summary</h3>
+                    <p id="explanation" class="result-text"></p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', path='js/app.js') }}" defer></script>
+</body>
+</html>

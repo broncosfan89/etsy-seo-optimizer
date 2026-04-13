@@ -419,12 +419,37 @@ button:disabled {
     font-weight: 500;
 }
 
+.field-help {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
 .field-grid {
     align-items: stretch;
 }
 
 .field {
     flex: 1 1 0;
+}
+
+.guidance-card {
+    padding: 18px 18px 18px 20px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(79, 54, 38, 0.08);
+}
+
+.guidance-card h3 {
+    margin: 0 0 10px;
+}
+
+.guidance-list {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+    line-height: 1.7;
 }
 
 .actions {

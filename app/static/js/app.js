@@ -14,7 +14,6 @@ const categoryInput = document.getElementById("category");
 const keywordInput = document.getElementById("target-keyword");
 const scoreValue = document.getElementById("score-value");
 const scoreLabel = document.getElementById("score-label");
-const scoreMeta = document.getElementById("score-meta");
 const issuesList = document.getElementById("issues-list");
 const keywordFocus = document.getElementById("keyword-focus");
 const optimizedTitle = document.getElementById("optimized-title");
@@ -153,7 +152,6 @@ function renderResults(response) {
     resultsCard.dataset.scoreBand = scoreBand(response.seo_score);
     scoreValue.textContent = response.seo_score;
     scoreLabel.textContent = response.score_label;
-    scoreMeta.textContent = response.used_mock ? "Mock output" : "LLM output";
     keywordFocus.textContent = response.keyword_focus || "No keyword focus returned";
     optimizedTitle.value = response.optimized_title || "";
     optimizedDescription.value = response.optimized_description || "";

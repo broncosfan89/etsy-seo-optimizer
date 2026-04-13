@@ -121,12 +121,27 @@
                             <div class="field">
                                 <label for="category">Category <span>Optional</span></label>
                                 <input id="category" name="category" type="text" maxlength="120" placeholder="Wall art, wedding gift, printable, etc.">
+                                <p class="field-help">
+                                    Add the closest Etsy-style category if you know it. This helps the analysis match the listing to the kind of buyer search intent it should target.
+                                </p>
                             </div>
 
                             <div class="field">
                                 <label for="target-keyword">Target keyword <span>Optional</span></label>
                                 <input id="target-keyword" name="target_keyword" type="text" maxlength="120" placeholder="personalized wedding gift">
+                                <p class="field-help">
+                                    Add one main phrase a buyer would realistically type into Etsy search. Example: `custom family sign` or `personalized wedding gift`. A focused keyword gives the rewrite a clearer SEO direction.
+                                </p>
                             </div>
+                        </div>
+
+                        <div class="guidance-card">
+                            <h3>Quick Input Guidance</h3>
+                            <ul class="guidance-list">
+                                <li>Use one primary keyword, not a long list of terms.</li>
+                                <li>Pick the phrase that best matches what the product actually is.</li>
+                                <li>Keywords help the tool place important search terms earlier in the title and description.</li>
+                            </ul>
                         </div>
 
                         <div class="actions">
@@ -154,7 +169,6 @@
                     <div id="score-value" class="score-value">0</div>
                     <div>
                         <div id="score-label" class="score-label">Poor</div>
-                        <div id="score-meta" class="subtle"></div>
                     </div>
                 </div>
             </div>
